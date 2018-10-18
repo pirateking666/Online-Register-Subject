@@ -1,0 +1,100 @@
+﻿@model SoftwareTechnology.Models.DAO.LoginModel
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-sm-10 clear">
+    <div class="content-body">
+        <div class="col-sm-12">
+            <div class="clearfix"></div>
+            <div class="panel-group login-box">
+                <div class="panel panel-primary">
+                    <div class="panel-heading login-header"><h3 id="login-header-text">Đăng nhập</h3></div>
+                    <div class="panel-body">
+                        @*@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+                            {
+                                <div class="form-group col-sm-12">
+                                    <div class="col-sm-5">@Html.Label("Tên tài khoản:", new { @class = "label-style" })</div>
+                                    <div class="col-sm-7">
+                                        @Html.TextBoxFor(Model => Model.userName, new { @class = "form-control", @placeholder = "Username...", @autofocus = "autofocus" })
+                                        @Html.ValidationMessageFor(Model => Model.userName, "Chưa nhập tên tài khoản", new { @class = "error-message" })
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                    <div class="form-inline col-sm-12">
+                                        <div class="col-sm-5">@Html.Label("Mật khẩu:", new { @class = "label-style" })</div>
+                                        <div class="col-sm-7">
+                                            @Html.PasswordFor(Model => Model.passWord, new { @class = "form-control", @placeholder = "Password..." })
+                                            @Html.ValidationMessageFor(Model => Model.passWord, "Chưa nhập mật khẩu", new { @class = "error-message" })
+                                        </div>
+
+                                    </div>
+                                    <button type="submit" class="btn btn-primary button-submit">Đăng nhập</button>
+                            }*@
+                        <form id="login-form">
+                            <div class="form-group col-sm-12">
+                                <div class="col-sm-5">@Html.Label("Tên tài khoản:", new { @class = "label-style" })</div>
+                                <div class="col-sm-7">
+                                    @Html.TextBoxFor(Model => Model.userName, new { @class = "form-control", @placeholder = "Tên tài khoản...", @autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(Model => Model.userName, "", new { @class = "error-message" })
+                                </div>
+
+                            </div>
+                            <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                            <div class="form-group col-sm-12">
+                                <div class="col-sm-5">@Html.Label("Mật khẩu:", new { @class = "label-style" })</div>
+                                <div class="col-sm-7">
+                                    @Html.PasswordFor(Model => Model.passWord, new { @class = "form-control", @placeholder = "Mật khẩu..." })
+                                    @Html.ValidationMessageFor(Model => Model.passWord, "", new { @class = "error-message" })
+                                </div>
+                            </div>
+                            @if(ViewBag.message != null)
+                            {
+                                <div class="col-sm-12 error-message">@ViewBag.message</div>
+                            }
+                            <a class="btn btn-primary button-submit" onclick="VerifyLogin()">Đăng nhập</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var VerifyLogin = function() {
+        var data = $("#login-form").serialize();
+
+        if (!$("#login-form").valid())
+        {
+            return false;
+        }
+
+        $.ajax({
+            type: "Post",
+            url: "/Login/VerifyLogin",
+            data: data,
+            success: function (position) {
+                if (position == "0")
+                {
+                    //window.location.href = "/Login/Index";
+                    alert("Sai tên tài khoản hoặc mật khẩu");
+                    $("#userName").val("");
+                    $("#passWord").val("");
+                }
+                else if (position == "Admin")
+                {
+                    window.location.href = "/Admin";
+                }
+                else if (position == "Teacher")
+                {
+                    window.location.href = "/Teacher";
+                }
+                else if (position == "Student")
+                {
+                    window.location.href = "/Student";
+                }
+            }
+        })
+    }
+</script>
