@@ -90,6 +90,16 @@ nav{
 .error-message{
     color: red;
 }
+.account-session {
+    height: 50px;
+    background: #0b9444;
+}
+.account-session > h4{
+    text-align: right;
+    padding-top: 6px;
+    padding-right: 5px;
+    color: white;
+}
 
 @media(max-width: 768px){
     .background{

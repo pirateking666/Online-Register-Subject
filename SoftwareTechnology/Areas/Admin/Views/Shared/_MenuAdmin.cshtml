@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+<div class="col-sm-2 clear">
+    <nav class="navbar navbar-default clear" role="navigation" style="width:auto;">
+        <div class="container clear">
+            <div class="navbar-header navbar-small">
+                <button type="button" class="navbar-toggle button-collapse" data-toggle="collapse" data-target="#navbar-left">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div> @*button colapse*@
+            <div class="collapse navbar-collapse clear" id="navbar-left">
+                <ul class="nav navbar-nav clear ul-small">
+                    <li class="@ViewBag.Home"> @Html.ActionLink("Trang chủ", "Index", "Home", new { area = "Admin" }, null) </li>
+                    <li class="@ViewBag.ChangePass"> @Html.ActionLink("Đổi mật khẩu", "Index", "ChangePassword", new { area = "Admin" }, null) </li>
+                    <li class="@ViewBag.CreateAcc"> @Html.ActionLink("Tạo tài khoản", "Index", "CreateAccount", new { area = "Admin" }, null) </li>
+                    <li class="@ViewBag.ListSub"> @Html.ActionLink("Mở đăng ký", "Index", "ShowSubject", new { area = "Admin" }, null) </li>
+                    <li class="@ViewBag.ListRegis"> @Html.ActionLink("Quản lý đăng ký", "Index", "ShowRegister", new { area = "Admin" }, null) </li>
+                </ul>
+            </div> @*navbar*@
+        </div>
+    </nav>
+</div>

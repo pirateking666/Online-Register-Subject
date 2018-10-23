@@ -52,5 +52,11 @@ namespace SoftwareTechnology.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            Session.Clear();
+            return RedirectToAction("Index","Home","Home");
+        }
     }
 }

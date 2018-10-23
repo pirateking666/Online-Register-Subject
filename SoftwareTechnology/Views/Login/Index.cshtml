@@ -49,10 +49,6 @@
                                     @Html.ValidationMessageFor(Model => Model.passWord, "", new { @class = "error-message" })
                                 </div>
                             </div>
-                            @if(ViewBag.message != null)
-                            {
-                                <div class="col-sm-12 error-message">@ViewBag.message</div>
-                            }
                             <a class="btn btn-primary button-submit" onclick="VerifyLogin()">Đăng nhập</a>
                         </form>
                     </div>
