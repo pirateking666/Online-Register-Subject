@@ -11,27 +11,6 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading login-header"><h3 id="login-header-text">Đăng nhập</h3></div>
                     <div class="panel-body">
-                        @*@using (Html.BeginForm("Login", "Home", FormMethod.Post))
-                            {
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-5">@Html.Label("Tên tài khoản:", new { @class = "label-style" })</div>
-                                    <div class="col-sm-7">
-                                        @Html.TextBoxFor(Model => Model.userName, new { @class = "form-control", @placeholder = "Username...", @autofocus = "autofocus" })
-                                        @Html.ValidationMessageFor(Model => Model.userName, "Chưa nhập tên tài khoản", new { @class = "error-message" })
-                                    </div>
-
-                                </div>
-                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
-                                    <div class="form-inline col-sm-12">
-                                        <div class="col-sm-5">@Html.Label("Mật khẩu:", new { @class = "label-style" })</div>
-                                        <div class="col-sm-7">
-                                            @Html.PasswordFor(Model => Model.passWord, new { @class = "form-control", @placeholder = "Password..." })
-                                            @Html.ValidationMessageFor(Model => Model.passWord, "Chưa nhập mật khẩu", new { @class = "error-message" })
-                                        </div>
-
-                                    </div>
-                                    <button type="submit" class="btn btn-primary button-submit">Đăng nhập</button>
-                            }*@
                         <form id="login-form">
                             <div class="form-group col-sm-12">
                                 <div class="col-sm-5">@Html.Label("Tên tài khoản:", new { @class = "label-style" })</div>
@@ -39,7 +18,6 @@
                                     @Html.TextBoxFor(Model => Model.userName, new { @class = "form-control", @placeholder = "Tên tài khoản...", @autofocus = "autofocus" })
                                     @Html.ValidationMessageFor(Model => Model.userName, "", new { @class = "error-message" })
                                 </div>
-
                             </div>
                             <div class="col-sm-12" style="width:auto; height:30px;"></div>
                             <div class="form-group col-sm-12">

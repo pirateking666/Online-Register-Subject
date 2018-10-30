@@ -11,6 +11,14 @@ namespace SoftwareTechnology.Areas.Teacher.Controllers
         // GET: Teacher/Home
         public ActionResult Index()
         {
+            if(Session["userName"] == null || (int)Session["positionID"] != 2)
+            {
+                return RedirectToAction("Index", "Login", new { @area = "" });
+            }
+            ViewBag.Home = "active-menu";
+            ViewBag.ChangePass = "menu-style";
+            ViewBag.Schedule = "menu-style";
+            ViewBag.Accept = "menu-style";
             return View();
         }
     }

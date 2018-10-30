@@ -1,0 +1,452 @@
+﻿@model SoftwareTechnology.Areas.Admin.Models.CreateAccount
+@{
+    ViewBag.Title = "Tạo tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-sm-10 clear">
+    <div class="content-body" style="height:auto;">
+        @RenderPage("~/Views/Shared/_Logout.cshtml")
+        <div class="col-sm-12 clear">
+            <div class="panel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h4>Thêm tài khoản</h4></div>
+                    <div class="panel-body">
+                        <div class="col-sm-4">
+                            <div class="col-sm-12 panel-heading title-account">Người quản trị</div>
+                            <img src="~/Content/Image/admin-icon.png" class="img-responsive" />
+                            <div class="col-sm-12 button-add-account"><a class="btn btn-primary" data-toggle="modal" data-target="#AdminModal"><span class="glyphicon glyphicon-plus"></span> Thêm</a></div>
+                            <div class="modal fade" id="AdminModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <a class="close" data-dismiss="modal">&times;</a>
+                                            <h4 class="modal-title">Thêm Người quản trị</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="AdminSubmit">
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Tên người quản trị:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.TextBoxFor(Model => Model.Admin.name, new { @class = "form-control", @placeholder = "Tên người quản trị...", @autofocus = "autofocus" })
+                                                        @Html.ValidationMessageFor(Model => Model.Admin.name, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Tên tài khoản:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.TextBoxFor(Model => Model.Admin.username, new { @class = "form-control", @placeholder = "Tên tài khoản..." })
+                                                        @Html.ValidationMessageFor(Model => Model.Admin.username, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Mật khẩu:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.PasswordFor(Model => Model.Admin.password, new { @class = "form-control", @placeholder = "Mật khẩu..." })
+                                                        @Html.ValidationMessageFor(Model => Model.Admin.password, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Xác nhận mật khẩu:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.PasswordFor(Model => Model.Admin.confirmPassword, new { @class = "form-control", @placeholder = "Xác nhận mật khẩu..." })
+                                                        @Html.ValidationMessageFor(Model => Model.Admin.confirmPassword, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                            </form>
+                                            <div style="text-align:center;display:none;" id="loading-gif1">
+                                                <img src="~/Content/Image/loading.gif" />
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-default" onclick="CloseModalAdmin()">Cancel</a>
+                                            <a class="btn btn-success" onclick="InsertAdmin()">Submit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="col-sm-12 panel-heading title-account">Giảng viên</div>
+                            <img src="~/Content/Image/teacher-icon.png" />
+                            <div class="col-sm-12 button-add-account"><a class="btn btn-primary" data-toggle="modal" data-target="#TeacherModal"><span class="glyphicon glyphicon-plus"></span> Thêm</a></div>
+                            <div class="modal fade" id="TeacherModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <a class="close" data-dismiss="modal">&times;</a>
+                                            <h4 class="modal-title">Thêm Giảng viên</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="TeacherSubmit">
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Tên giảng viên:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.TextBoxFor(Model => Model.Teacher.name, new { @class = "form-control", @placeholder = "Tên giảng viên...", @autofocus = "autofocus" })
+                                                        @Html.ValidationMessageFor(Model => Model.Teacher.name, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12" id="birth" style="height:20px;">
+                                                    <div class="col-sm-5">@Html.Label("Ngày sinh:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        <div class="col-sm-4" style="padding-left:0px;">
+                                                            @Html.DropDownListFor(Model => Model.Teacher.day, new SelectList(Enumerable.Range(1, 31)), new { @class = "form-control" })
+                                                        </div>
+                                                        <div class="col-sm-4" style="padding-left:0px;">
+                                                            @Html.DropDownListFor(Model => Model.Teacher.month, new SelectList(Enumerable.Range(1, 12)), new { @class = "form-control" })
+                                                        </div>
+                                                        <div class="col-sm-4 clear">
+                                                            @Html.DropDownListFor(Model => Model.Teacher.year, new SelectList(Enumerable.Range(1980, 17)), new { @class = "form-control" })
+                                                        </div>
+                                                        <span class="error-message" style="display:none" id="valid-birth"><span>Ngày sinh không hợp lệ</span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:20px;"></div>
+                                                <div class="form-group col-sm-12" style="height:20px;">
+                                                    <div class="col-sm-5">@Html.Label("Giới tính:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        <div class="col-sm-4 clear">
+                                                            @Html.DropDownListFor(Model => Model.Teacher.gender, new List<SelectListItem> { new SelectListItem { Text = "Nam", Value = "Nam" }, new SelectListItem { Text = "Nữ", Value = "Nữ" } }, new { @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:10px;"></div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Quê quán:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.TextBoxFor(Model => Model.Teacher.country, new { @class = "form-control", @placeholder = "Quê quán..." })
+                                                        @Html.ValidationMessageFor(Model => Model.Teacher.country, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Số điện thoại:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.TextBoxFor(Model => Model.Teacher.phoneNumber, new { @class = "form-control", @placeholder = "Số điện thoại..." })
+                                                        @Html.ValidationMessageFor(Model => Model.Teacher.phoneNumber, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12" style="height:20px;">
+                                                    <div class="col-sm-5">@Html.Label("Ngành:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.DropDownListFor(Model => Model.Teacher.branch, ViewBag.BranchList as SelectList, null, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Tên tài khoản:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.TextBoxFor(Model => Model.Teacher.username, new { @class = "form-control", @placeholder = "Tên tài khoản..." })
+                                                        @Html.ValidationMessageFor(Model => Model.Teacher.username, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Mật khẩu:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.PasswordFor(Model => Model.Teacher.password, new { @class = "form-control", @placeholder = "Mật khẩu..." })
+                                                        @Html.ValidationMessageFor(Model => Model.Teacher.password, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Xác nhận mật khẩu:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.PasswordFor(Model => Model.Teacher.confirmPassword, new { @class = "form-control", @placeholder = "Xác nhận mật khẩu..." })
+                                                        @Html.ValidationMessageFor(Model => Model.Teacher.confirmPassword, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:20px;"></div>
+                                            </form>
+                                            <div style="text-align:center;display:none;" id="loading-gif2">
+                                                <img src="~/Content/Image/loading.gif" />
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-default" onclick="CloseModalTeacher()">Cancel</a>
+                                            <a class="btn btn-success" onclick="InsertTeacher()">Submit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="col-sm-12 panel-heading title-account">Sinh viên</div>
+                            <img src="~/Content/Image/student-icon.png" />
+                            <div class="col-sm-12 button-add-account"><a class="btn btn-primary" data-toggle="modal" data-target="#StudentModal"><span class="glyphicon glyphicon-plus"></span> Thêm</a></div>
+                            <div class="modal fade" id="StudentModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <a class="close" data-dismiss="modal">&times;</a>
+                                            <h4 class="modal-title">Thêm Sinh viên</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="StudentSubmit">
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Tên sinh viên:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.TextBoxFor(Model => Model.Student.name, new { @class = "form-control", @placeholder = "Tên sinh viên...", @autofocus = "autofocus" })
+                                                        @Html.ValidationMessageFor(Model => Model.Student.name, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12" id="birth" style="height:20px;">
+                                                    <div class="col-sm-5">@Html.Label("Ngày sinh:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        <div class="col-sm-4" style="padding-left:0px;">
+                                                            @Html.DropDownListFor(Model => Model.Student.day, new SelectList(Enumerable.Range(1, 31)), new { @class = "form-control" })
+                                                        </div>
+                                                        <div class="col-sm-4" style="padding-left:0px;">
+                                                            @Html.DropDownListFor(Model => Model.Student.month, new SelectList(Enumerable.Range(1, 12)), new { @class = "form-control" })
+                                                        </div>
+                                                        <div class="col-sm-4 clear">
+                                                            @Html.DropDownListFor(Model => Model.Student.year, new SelectList(Enumerable.Range(1980, 17)), new { @class = "form-control" })
+                                                        </div>
+                                                        <span class="error-message" style="display:none" id="valid-birth2"><span>Ngày sinh không hợp lệ</span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:20px;"></div>
+                                                <div class="form-group col-sm-12" style="height:20px;">
+                                                    <div class="col-sm-5">@Html.Label("Giới tính:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        <div class="col-sm-4 clear">
+                                                            @Html.DropDownListFor(Model => Model.Student.gender, new List<SelectListItem> { new SelectListItem { Text = "Nam", Value = "Nam" }, new SelectListItem { Text = "Nữ", Value = "Nữ" } }, new { @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:10px;"></div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Quê quán:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.TextBoxFor(Model => Model.Student.country, new { @class = "form-control", @placeholder = "Quê quán..." })
+                                                        @Html.ValidationMessageFor(Model => Model.Student.country, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Địa chỉ:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.TextBoxFor(Model => Model.Student.address, new { @class = "form-control", @placeholder = "Địa chỉ..." })
+                                                        @Html.ValidationMessageFor(Model => Model.Student.address, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12" style="height:20px;">
+                                                    <div class="col-sm-5">@Html.Label("Ngành:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.DropDownListFor(Model => Model.Student.branch, ViewBag.BranchList as SelectList, null, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12" style="height:20px;">
+                                                    <div class="col-sm-5">@Html.Label("Khóa:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.DropDownListFor(Model => Model.Student.course, ViewBag.CourseList as SelectList, null, new { @class = "form-control" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:15px;"></div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Tên tài khoản:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.TextBoxFor(Model => Model.Student.username, new { @class = "form-control", @placeholder = "Tên tài khoản..." })
+                                                        @Html.ValidationMessageFor(Model => Model.Student.username, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Mật khẩu:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.PasswordFor(Model => Model.Student.password, new { @class = "form-control", @placeholder = "Mật khẩu..." })
+                                                        @Html.ValidationMessageFor(Model => Model.Student.password, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="col-sm-5">@Html.Label("Xác nhận mật khẩu:", new { @class = "label-style2" })</div>
+                                                    <div class="col-sm-7">
+                                                        @Html.PasswordFor(Model => Model.Student.confirmPassword, new { @class = "form-control", @placeholder = "Xác nhận mật khẩu..." })
+                                                        @Html.ValidationMessageFor(Model => Model.Student.confirmPassword, "", new { @class = "error-message" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12" style="width:auto; height:20px;"></div>
+                                            </form>
+                                            <div style="text-align:center;display:none;" id="loading-gif3">
+                                                <img src="~/Content/Image/loading.gif" />
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-default" onclick="CloseModalStudent()">Cancel</a>
+                                            <a class="btn btn-success" onclick="InsertStudent()">Submit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var InsertAdmin = function () {
+        var data = $("#AdminSubmit").serialize();
+        if (!$("#AdminSubmit").valid()) {
+            return false;
+        }
+        $("#loading-gif1").show();
+        $.ajax({
+            type: "Post",
+            url: "/Admin/CreateAccount/CreateAdminAccount",
+            data: data,
+            success: function (bool) {
+                if (bool == "true") {
+                    $("#loading-gif").hide();
+                    $("#Admin_name").val("");
+                    $("#Admin_username").val("");
+                    $("#Admin_password").val("");
+                    $("#Admin_confirmPassword").val("");
+                    $("#AdminModal").modal("hide");
+                    alert("Thêm người quản trị thành công");
+                }
+                else if (bool == "false") {
+                    $("#loading-gif").hide();
+                    alert("Tên tài khoản đã tồn tại");
+                }
+            }
+        })
+    }
+    var CloseModalAdmin = function () {
+        $("#Admin_name").val("");
+        $("#Admin_username").val("");
+        $("#Admin_password").val("");
+        $("#Admin_confirmPassword").val("");
+        $("#AdminModal").modal("hide");
+    }
+    var InsertTeacher = function () {
+        var data = $("#TeacherSubmit").serialize();
+        if (!$("#TeacherSubmit").valid()) {
+            return false;
+        }
+        else {
+            if (($("#Teacher_month").val() == 2 && $("#Teacher_day").val() == 29) ||
+                ($("#Teacher_month").val() == 2 && $("#Teacher_day").val() == 30) ||
+                ($("#Teacher_month").val() == 2 && $("#Teacher_day").val() == 31) ||
+                ($("#Teacher_month").val() == 4 && $("#Teacher_day").val() == 31) ||
+                ($("#Teacher_month").val() == 6 && $("#Teacher_day").val() == 31) ||
+                ($("#Teacher_month").val() == 9 && $("#Teacher_day").val() == 31) ||
+                ($("#Teacher_month").val() == 11 && $("#Teacher_day").val() == 31)) {
+                $("#valid-birth").show();
+                return false;
+            }
+            $("#valid-birth").hide();
+        }
+        $("#loading-gif2").show();
+        $.ajax({
+            type: "Post",
+            url: "/Admin/CreateAccount/CreateTeacherAccount",
+            data: data,
+            success: function (bool) {
+                if (bool == "true") {
+                    $("#loading-gif2").hide();
+                    $("#Teacher_name").val("");
+                    $("#Teacher_username").val("");
+                    $("#Teacher_password").val("");
+                    $("#Teacher_confirmPassword").val("");
+                    $("#Teacher_day").val(1);
+                    $("#Teacher_month").val(1);
+                    $("#Teacher_year").val(1980);
+                    $("#Teacher_gender").val("Nam");
+                    $("#Teacher_country").val("");
+                    $("#Teacher_phoneNumber").val("");
+                    $("#TeacherModal").modal("hide");
+                    alert("Thêm giảng viên thành công");
+                }
+                else {
+                    $("#loading-gif2").hide();
+                    alert("Tên tài khoản đã tồn tại");
+                }
+            }
+        })
+    }
+    var CloseModalTeacher = function () {
+        $("#Teacher_name").val("");
+        $("#Teacher_username").val("");
+        $("#Teacher_password").val("");
+        $("#Teacher_confirmPassword").val("");
+        $("#Teacher_day").val(1);
+        $("#Teacher_month").val(1);
+        $("#Teacher_year").val(1980);
+        $("#Teacher_gender").val("Nam");
+        $("#Teacher_country").val("");
+        $("#Teacher_phoneNumber").val("");
+        $("#valid-birth").hide();
+        $("#TeacherModal").modal("hide");
+    }
+    var InsertStudent = function () {
+        var data = $("#StudentSubmit").serialize();
+        if (!$("#StudentSubmit").valid()) {
+            return false;
+        }
+        else {
+            if (($("#Student_month").val() == 2 && $("#Student_day").val() == 29) ||
+                ($("#Student_month").val() == 2 && $("#Student_day").val() == 30) ||
+                ($("#Student_month").val() == 2 && $("#Student_day").val() == 31) ||
+                ($("#Student_month").val() == 4 && $("#Student_day").val() == 31) ||
+                ($("#Student_month").val() == 6 && $("#Student_day").val() == 31) ||
+                ($("#Student_month").val() == 9 && $("#Student_day").val() == 31) ||
+                ($("#Student_month").val() == 11 && $("#Student_day").val() == 31)) {
+                $("#valid-birth2").show();
+                return false;
+            }
+            $("#valid-birth2").hide();
+        }
+        $("#loading-gif3").show();
+        $.ajax({
+            type: "Post",
+            url: "/Admin/CreateAccount/CreateStudentAccount",
+            data: data,
+            success: function (bool) {
+                if (bool == "true") {
+                    $("#loading-gif3").hide();
+                    $("#Student_name").val("");
+                    $("#Student_username").val("");
+                    $("#Student_password").val("");
+                    $("#Student_confirmPassword").val("");
+                    $("#Student_day").val(1);
+                    $("#Student_month").val(1);
+                    $("#Student_year").val(1980);
+                    $("#Student_gender").val("Nam");
+                    $("#Student_country").val("");
+                    $("#Student_address").val("");
+                    $("#StudentModal").modal("hide");
+                    alert("Thêm sinh viên thành công");
+                }
+                else {
+                    $("#loading-gif3").hide();
+                    alert("Tên tài khoản đã tồn tại");
+                }
+            }
+        })
+    }
+    var CloseModalStudent = function () {
+        $("#Student_name").val("");
+        $("#Student_username").val("");
+        $("#Student_password").val("");
+        $("#Student_confirmPassword").val("");
+        $("#Student_day").val(1);
+        $("#Student_month").val(1);
+        $("#Student_year").val(1980);
+        $("#Student_gender").val("Nam");
+        $("#Student_country").val("");
+        $("#Student_address").val("");
+        $("#StudentModal").modal("hide");
+    }
+</script>

@@ -34,17 +34,20 @@ namespace SoftwareTechnology.Controllers
                 Session["userName"] = loginAcc.UserName;
                 if (loginAcc.PositionID == 1)
                 {
+                    Session["positionID"] = 1;
                     result = "Admin";
                 }
                 else if (loginAcc.PositionID == 2)
                 {
                     Teacher temp = db.Teachers.SingleOrDefault(x => x.UserName == model.userName);
+                    Session["positionID"] = 2;
                     Session["branchID"] = temp.BranchID;
                     result = "Teacher";
                 }
                 else if (loginAcc.PositionID == 3)
                 {
                     Student temp = db.Students.SingleOrDefault(x => x.UserName == model.userName);
+                    Session["positionID"] = 3;
                     Session["branchID"] = temp.BranchID;
                     Session["courseID"] = temp.CourseID;
                     result = "Student";

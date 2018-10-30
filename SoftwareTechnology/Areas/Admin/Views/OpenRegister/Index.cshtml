@@ -1,0 +1,149 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="col-sm-10 clear">
+    <div class="content-body" style="@ViewBag.Style">
+        @RenderPage("~/Views/Shared/_Logout.cshtml")
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h2>Danh sách môn học</h2></div>
+                <div class="panel-body">
+                    <a class="btn btn-success" onclick="OpenRegis()" id="button-open" style="display:none;">Mở đăng ký</a>
+                    <div class="col-sm-12" style="height:30px;"></div>
+                    <div class="col-sm-12" id="list-subject" style="display:none;">
+                        @if (ViewBag.ListBranch != null)
+                        {
+                            foreach (var item in ViewBag.ListBranch)
+                            {
+                                <div class="panel-group">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">@item.Name</div>
+                                        <div class="panel-body">
+                                            @if (ViewBag.ListCourse != null)
+                                            {
+                                                foreach (var item1 in ViewBag.ListCourse)
+                                                {
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="col-sm-2">Khoá @item1.Name</th>
+                                                                <th class="col-sm-2">Mã môn</th>
+                                                                <th class="col-sm-6">Tên môn</th>
+                                                                <th class="col-sm-2">Tín chỉ</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @if (ViewBag.ListSubject != null)
+                                                            {
+                                                                if (ViewBag.CurrentYear == item1.BeginYear)
+                                                                {
+                                                                    foreach (var item2 in ViewBag.ListSubject)
+                                                                    {
+                                                                        if (item2.branchID == item.ID && (item2.semesterID == 1 || item2.semesterID == 2))
+                                                                        {
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td>@item2.subjectID</td>
+                                                                                <td>@item2.name</td>
+                                                                                <td>@item2.credit</td>
+                                                                            </tr>
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else if ((ViewBag.CurrentYear - 1) == item1.BeginYear)
+                                                                {
+                                                                    foreach (var item2 in ViewBag.ListSubject)
+                                                                    {
+                                                                        if (item2.branchID == item.ID && (item2.semesterID == 3 || item2.semesterID == 4))
+                                                                        {
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td>@item2.subjectID</td>
+                                                                                <td>@item2.name</td>
+                                                                                <td>@item2.credit</td>
+                                                                            </tr>
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else if ((ViewBag.CurrentYear - 2) == item1.BeginYear)
+                                                                {
+                                                                    foreach (var item2 in ViewBag.ListSubject)
+                                                                    {
+                                                                        if (item2.branchID == item.ID && (item2.semesterID == 5 || item2.semesterID == 6))
+                                                                        {
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td>@item2.subjectID</td>
+                                                                                <td>@item2.name</td>
+                                                                                <td>@item2.credit</td>
+                                                                            </tr>
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else if ((ViewBag.CurrentYear - 3) == item1.BeginYear)
+                                                                {
+                                                                    foreach (var item2 in ViewBag.ListSubject)
+                                                                    {
+                                                                        if (item2.branchID == item.ID && (item2.semesterID == 7 || item2.semesterID == 8))
+                                                                        {
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td>@item2.subjectID</td>
+                                                                                <td>@item2.name</td>
+                                                                                <td>@item2.credit</td>
+                                                                            </tr>
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" style="height:30px;"></div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "Post",
+            url: "/Admin/OpenRegister/Show",
+            dataType: "Json",
+            async: false,
+            data: null,
+            success: function (bool) {
+                if (bool == "button") {
+                    $("#button-open").show();
+                    $("#list-subject").hide();
+                }
+                else {
+                    $("#button-open").hide();
+                    $("#list-subject").show();
+                }
+            }
+        })
+    })
+    var OpenRegis = function () {
+        $.ajax({
+            type: "Post",
+            url: "/Admin/OpenRegister/Process",
+            data: null,
+            success: function (bool) {
+                if (bool == "true") {
+                    window.location.reload(true);
+                }
+            }
+        })
+    }
+</script>

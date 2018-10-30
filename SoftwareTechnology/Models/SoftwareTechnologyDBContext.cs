@@ -19,15 +19,16 @@ namespace SoftwareTechnology.Models
         public virtual DbSet<ClassType> ClassTypes { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Day> Days { get; set; }
-        public virtual DbSet<ListSubject> ListSubjects { get; set; }
+        public virtual DbSet<OpenRegister> OpenRegisters { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
+        public virtual DbSet<Semester> Semesters { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<SubjectProgram> SubjectPrograms { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<Time> Times { get; set; }
-        public object Account { get; internal set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -69,19 +70,14 @@ namespace SoftwareTechnology.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Branch>()
+                .HasMany(e => e.SubjectPrograms)
+                .WithRequired(e => e.Branch)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Branch>()
                 .HasMany(e => e.Classes)
                 .WithRequired(e => e.Branch)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Branch>()
-                .HasMany(e => e.ListSubjects)
-                .WithRequired(e => e.Branch)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Branch>()
-                .HasMany(e => e.Subjects)
-                .WithMany(e => e.Branches)
-                .Map(m => m.ToTable("SubjectDetails").MapLeftKey("BranchID").MapRightKey("SubjectID"));
 
             modelBuilder.Entity<Class>()
                 .HasMany(e => e.Students)
@@ -103,11 +99,6 @@ namespace SoftwareTechnology.Models
                 .WithRequired(e => e.Course)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Course>()
-                .HasMany(e => e.ListSubjects)
-                .WithRequired(e => e.Course)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Day>()
                 .HasMany(e => e.Classes)
                 .WithRequired(e => e.Day)
@@ -123,13 +114,18 @@ namespace SoftwareTechnology.Models
                 .WithRequired(e => e.Room)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Semester>()
+                .HasMany(e => e.SubjectPrograms)
+                .WithRequired(e => e.Semester)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Status>()
                 .HasMany(e => e.Classes)
                 .WithRequired(e => e.Status)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Status>()
-                .HasMany(e => e.ListSubjects)
+                .HasMany(e => e.OpenRegisters)
                 .WithRequired(e => e.Status)
                 .WillCascadeOnDelete(false);
 
@@ -143,7 +139,7 @@ namespace SoftwareTechnology.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Subject>()
-                .HasMany(e => e.ListSubjects)
+                .HasMany(e => e.SubjectPrograms)
                 .WithRequired(e => e.Subject)
                 .WillCascadeOnDelete(false);
 

@@ -44,7 +44,7 @@
     color: #222222;
     font-size: large;
     font-weight: 600;
-    margin-left: 20px;
+    margin-left: 15px;
 }
 nav{
     border-radius: 0px !important;
@@ -79,8 +79,12 @@ nav{
     margin-left: 190px;
 }
 .label-style{
-    margin-top: 5px;
+    margin-top: 9px;
     margin-left: 50px;
+}
+.label-style2 {
+    margin-top: 9px;
+    margin-left: 0px;
 }
 .button-submit {
     margin-top: 30px;
@@ -99,6 +103,24 @@ nav{
     padding-top: 6px;
     padding-right: 5px;
     color: white;
+}
+.account-session > h4 > a {
+    color: #86d8fd;
+}
+.account-session > h4 > a:hover {
+    color: white;
+}
+.title-account {
+    background: #428bca;
+    text-align: center;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.button-add-account{
+    margin-top: 5px;
+    text-align: center;
 }
 
 @media(max-width: 768px){

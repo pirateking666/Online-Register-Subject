@@ -11,10 +11,14 @@ namespace SoftwareTechnology.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
+            if (Session["userName"] == null || (int)Session["positionID"] != 1)
+            {
+                return RedirectToAction("Index", "Login", new { @area = "" });
+            }
             ViewBag.Home = "active-menu";
             ViewBag.ChangePass = "menu-style";
             ViewBag.CreateAcc = "menu-style";
-            ViewBag.ListSub = "menu-style";
+            ViewBag.OpenRegis = "menu-style";
             ViewBag.ListRegis = "menu-style";
             return View();
         }

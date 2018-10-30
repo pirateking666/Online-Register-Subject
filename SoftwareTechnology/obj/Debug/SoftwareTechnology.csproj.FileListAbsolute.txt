@@ -137,8 +137,8 @@ C:\Users\PC\Desktop\SoftwareTechnology\SoftwareTechnology\bin\Microsoft.AI.Depen
 C:\Users\PC\Desktop\SoftwareTechnology\SoftwareTechnology\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\PC\Desktop\SoftwareTechnology\SoftwareTechnology\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\PC\Desktop\SoftwareTechnology\SoftwareTechnology\bin\Microsoft.AI.Web.xml
-C:\Users\PC\Desktop\SoftwareTechnology\SoftwareTechnology\obj\Debug\SoftwareTechnology.csprojAssemblyReference.cache
 C:\Users\PC\Desktop\SoftwareTechnology\SoftwareTechnology\obj\Debug\SoftwareTechnology.csproj.CoreCompileInputs.cache
 C:\Users\PC\Desktop\SoftwareTechnology\SoftwareTechnology\obj\Debug\SoftwareTechnology.csproj.CopyComplete
 C:\Users\PC\Desktop\SoftwareTechnology\SoftwareTechnology\obj\Debug\SoftwareTechnology.dll
 C:\Users\PC\Desktop\SoftwareTechnology\SoftwareTechnology\obj\Debug\SoftwareTechnology.pdb
+C:\Users\PC\Desktop\SoftwareTechnology\SoftwareTechnology\obj\Debug\SoftwareTechnology.csprojAssemblyReference.cache

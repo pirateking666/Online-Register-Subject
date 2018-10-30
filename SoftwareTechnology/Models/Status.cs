@@ -12,7 +12,7 @@ namespace SoftwareTechnology.Models
         public Status()
         {
             Classes = new HashSet<Class>();
-            ListSubjects = new HashSet<ListSubject>();
+            OpenRegisters = new HashSet<OpenRegister>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -25,6 +25,6 @@ namespace SoftwareTechnology.Models
         public virtual ICollection<Class> Classes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ListSubject> ListSubjects { get; set; }
+        public virtual ICollection<OpenRegister> OpenRegisters { get; set; }
     }
 }

@@ -36,6 +36,8 @@ namespace SoftwareTechnology.Models
 
         public int StatusID { get; set; }
 
+        public int? NumberOfStudent { get; set; }
+
         public virtual Branch Branch { get; set; }
 
         public virtual Course Course { get; set; }

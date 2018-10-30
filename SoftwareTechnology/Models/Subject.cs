@@ -13,8 +13,7 @@ namespace SoftwareTechnology.Models
         public Subject()
         {
             Classes = new HashSet<Class>();
-            ListSubjects = new HashSet<ListSubject>();
-            Branches = new HashSet<Branch>();
+            SubjectPrograms = new HashSet<SubjectProgram>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -30,9 +29,6 @@ namespace SoftwareTechnology.Models
         public virtual ICollection<Class> Classes { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ListSubject> ListSubjects { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Branch> Branches { get; set; }
+        public virtual ICollection<SubjectProgram> SubjectPrograms { get; set; }
     }
 }

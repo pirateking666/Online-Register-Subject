@@ -14,7 +14,6 @@ namespace SoftwareTechnology.Models
         {
             Classes = new HashSet<Class>();
             Students = new HashSet<Student>();
-            ListSubjects = new HashSet<ListSubject>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -31,8 +30,5 @@ namespace SoftwareTechnology.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Student> Students { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ListSubject> ListSubjects { get; set; }
     }
 }

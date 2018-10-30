@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Teacher/Views/Shared/_LayoutTeacher.cshtml";
+}
+<div class="col-sm-10 clear">
+    <div class="content-body" style="height:auto;">
+        @RenderPage("~/Views/Shared/_Logout.cshtml")
+        <div class="col-sm-12">
+            <div class="col-sm-12 clear"><a class="btn btn-primary" data-toggle="modal" data-target="#ClassRegister"><span class="glyphicon glyphicon-plus"></span> Thêm đăng ký</a></div>
+            <div class="modal fade" id="ClassRegister">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal">&times;</a>
+                            <h4 class="modal-title">Thêm đăng ký lớp</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="ClassSubmit">
+                                <div class="form-group col-sm-12">
+                                    <div class="col-sm-5">@Html.Label("Tên người quản trị:", new { @class = "label-style2" })</div>
+                                    <div class="col-sm-7">
+                                        @*@Html.TextBoxFor(Model => Model.Admin.name, new { @class = "form-control", @placeholder = "Tên người quản trị...", @autofocus = "autofocus" })
+                                        @Html.ValidationMessageFor(Model => Model.Admin.name, "", new { @class = "error-message" })*@
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                <div class="form-group col-sm-12">
+                                    <div class="col-sm-5">@Html.Label("Tên tài khoản:", new { @class = "label-style2" })</div>
+                                    <div class="col-sm-7">
+                                        @*@Html.TextBoxFor(Model => Model.Admin.username, new { @class = "form-control", @placeholder = "Tên tài khoản..." })
+                                        @Html.ValidationMessageFor(Model => Model.Admin.username, "", new { @class = "error-message" })*@
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                <div class="form-group col-sm-12">
+                                    <div class="col-sm-5">@Html.Label("Mật khẩu:", new { @class = "label-style2" })</div>
+                                    <div class="col-sm-7">
+                                        @*@Html.PasswordFor(Model => Model.Admin.password, new { @class = "form-control", @placeholder = "Mật khẩu..." })
+                                        @Html.ValidationMessageFor(Model => Model.Admin.password, "", new { @class = "error-message" })*@
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                                <div class="form-group col-sm-12">
+                                    <div class="col-sm-5">@Html.Label("Xác nhận mật khẩu:", new { @class = "label-style2" })</div>
+                                    <div class="col-sm-7">
+                                        @*@Html.PasswordFor(Model => Model.Admin.confirmPassword, new { @class = "form-control", @placeholder = "Xác nhận mật khẩu..." })
+                                        @Html.ValidationMessageFor(Model => Model.Admin.confirmPassword, "", new { @class = "error-message" })*@
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" style="width:auto; height:30px;"></div>
+                            </form>
+                            <div style="text-align:center;display:none;" id="loading-gif1">
+                                <img src="~/Content/Image/loading.gif" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-default" onclick="CloseModalAdmin()">Cancel</a>
+                            <a class="btn btn-success" onclick="InsertAdmin()">Submit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12" style="height:15px;"></div>
+        <div class="col-sm-12">
+            <div class="panel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h3>Danh sách môn</h3></div>
+                    <div class="panel-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Mã môn</th>
+                                    <th>Tên môn</th>
+                                    <th>Tín chỉ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(ViewBag.ListSubject != null)
+                                {
+                                    foreach(var item in ViewBag.ListSubject)
+                                    {
+                                        <tr>
+                                            <td>@item.subjectID</td>
+                                            <td>@item.name</td>
+                                            <td>@item.credit</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

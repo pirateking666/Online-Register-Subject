@@ -1,8 +1,20 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Teacher/Views/Shared/_LayoutTeacher.cshtml";
 }
-
-<h2 style="color:white;">Index od Teacher</h2>
+<div class="col-sm-10 clear">
+    <div class="content-body">
+        @RenderPage("~/Views/Shared/_Logout.cshtml")
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h2>Trang chủ Teacher</h2></div>
+                <div class="panel-body">
+                    <h4>- Đây là trang chủ của Teacher với username = @Session["userName"], branchID = @Session["branchID"] </h4>
+                </div>
+                <div class="panel-footer">Trang index chỉ để coi cho vui!</div>
+            </div>
+        </div>
+    </div>
+</div>
 

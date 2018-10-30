@@ -152,10 +152,19 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ChangePasswordController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CreateAccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OpenRegisterController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ShowRegisterController.cs" />
+    <Compile Include="Areas\Admin\Models\CreateAccount.cs" />
+    <Compile Include="Areas\Admin\Models\CreateAdminAccount.cs" />
+    <Compile Include="Areas\Admin\Models\CreateStudentAccount.cs" />
+    <Compile Include="Areas\Admin\Models\CreateTeacherAccount.cs" />
     <Compile Include="Areas\Student\Controllers\HomeController.cs" />
     <Compile Include="Areas\Student\StudentAreaRegistration.cs" />
+    <Compile Include="Areas\Teacher\Controllers\ChangePasswordController.cs" />
     <Compile Include="Areas\Teacher\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Teacher\Controllers\ScheduleManagerController.cs" />
     <Compile Include="Areas\Teacher\TeacherAreaRegistration.cs" />
     <Compile Include="Common\Md5Function.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -169,16 +178,29 @@
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\ClassType.cs" />
     <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\DAO\ListClass.cs" />
+    <Compile Include="Models\DAO\ListSubject.cs" />
     <Compile Include="Models\DAO\LoginModel.cs" />
+    <Compile Include="Models\DAO\ModifyAccount.cs" />
+    <Compile Include="Models\DAO\ModifyAdmin.cs" />
+    <Compile Include="Models\DAO\ModifyBranch.cs" />
+    <Compile Include="Models\DAO\ModifyClass.cs" />
+    <Compile Include="Models\DAO\ModifyCourse.cs" />
+    <Compile Include="Models\DAO\ModifyOpenRegister.cs" />
+    <Compile Include="Models\DAO\ModifyStudent.cs" />
+    <Compile Include="Models\DAO\ModifySubjectProgram.cs" />
+    <Compile Include="Models\DAO\ModifyTeacher.cs" />
     <Compile Include="Models\DAO\UpdateAccountModel.cs" />
     <Compile Include="Models\Day.cs" />
-    <Compile Include="Models\ListSubject.cs" />
+    <Compile Include="Models\OpenRegister.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Room.cs" />
+    <Compile Include="Models\Semester.cs" />
     <Compile Include="Models\SoftwareTechnologyDBContext.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Subject.cs" />
+    <Compile Include="Models\SubjectProgram.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Models\Time.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -186,13 +208,17 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Image\admin-icon.png" />
     <Content Include="Content\Image\button-active.png" />
     <Content Include="Content\Image\button.png" />
     <Content Include="Content\Image\background-content.png" />
     <Content Include="Content\Image\footer_bg.png" />
     <Content Include="Content\Image\header-img.png" />
+    <Content Include="Content\Image\loading.gif" />
     <Content Include="Content\Image\logo_text.png" />
     <Content Include="Content\Image\background.png" />
+    <Content Include="Content\Image\student-icon.png" />
+    <Content Include="Content\Image\teacher-icon.png" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -212,6 +238,13 @@
     <Content Include="Areas\Admin\Views\Shared\_MenuAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ChangePassword\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CreateAccount\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\OpenRegister\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ShowRegister\Index.cshtml" />
+    <Content Include="Areas\Teacher\Views\Shared\_MenuTeacher.cshtml" />
+    <Content Include="Areas\Teacher\Views\Shared\_LayoutTeacher.cshtml" />
+    <Content Include="Areas\Teacher\Views\ChangePassword\Index.cshtml" />
+    <Content Include="Areas\Teacher\Views\ScheduleManager\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -243,11 +276,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Student\Models\" />
     <Folder Include="Areas\Student\Views\Shared\" />
     <Folder Include="Areas\Teacher\Models\" />
-    <Folder Include="Areas\Teacher\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
