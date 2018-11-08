@@ -25,6 +25,7 @@ namespace SoftwareTechnology.Models
         public virtual DbSet<Semester> Semesters { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<StudentDetail> StudentDetails { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<SubjectProgram> SubjectPrograms { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
@@ -80,9 +81,9 @@ namespace SoftwareTechnology.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Class>()
-                .HasMany(e => e.Students)
-                .WithMany(e => e.Classes)
-                .Map(m => m.ToTable("StudentDetails").MapLeftKey("ClassID").MapRightKey("StudentID"));
+                .HasMany(e => e.StudentDetails)
+                .WithRequired(e => e.Class)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ClassType>()
                 .HasMany(e => e.Classes)
@@ -132,6 +133,11 @@ namespace SoftwareTechnology.Models
             modelBuilder.Entity<Student>()
                 .Property(e => e.UserName)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Student>()
+                .HasMany(e => e.StudentDetails)
+                .WithRequired(e => e.Student)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Subject>()
                 .HasMany(e => e.Classes)

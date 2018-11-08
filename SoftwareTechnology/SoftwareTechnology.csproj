@@ -160,11 +160,20 @@
     <Compile Include="Areas\Admin\Models\CreateAdminAccount.cs" />
     <Compile Include="Areas\Admin\Models\CreateStudentAccount.cs" />
     <Compile Include="Areas\Admin\Models\CreateTeacherAccount.cs" />
+    <Compile Include="Areas\Student\Controllers\ChangePasswordController.cs" />
     <Compile Include="Areas\Student\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Student\Controllers\RegisterClassController.cs" />
+    <Compile Include="Areas\Student\Controllers\ScheduleManagerController.cs" />
+    <Compile Include="Areas\Student\Models\JoinLeaveClass.cs" />
+    <Compile Include="Areas\Student\Models\ManagerClassRe.cs" />
     <Compile Include="Areas\Student\StudentAreaRegistration.cs" />
+    <Compile Include="Areas\Teacher\Controllers\AcceptClassController.cs" />
     <Compile Include="Areas\Teacher\Controllers\ChangePasswordController.cs" />
     <Compile Include="Areas\Teacher\Controllers\HomeController.cs" />
     <Compile Include="Areas\Teacher\Controllers\ScheduleManagerController.cs" />
+    <Compile Include="Areas\Teacher\Models\AcceptClass.cs" />
+    <Compile Include="Areas\Teacher\Models\ElementClass.cs" />
+    <Compile Include="Areas\Teacher\Models\ManagerClass.cs" />
     <Compile Include="Areas\Teacher\TeacherAreaRegistration.cs" />
     <Compile Include="Common\Md5Function.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -179,6 +188,7 @@
     <Compile Include="Models\ClassType.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\DAO\ListClass.cs" />
+    <Compile Include="Models\DAO\ListStudent.cs" />
     <Compile Include="Models\DAO\ListSubject.cs" />
     <Compile Include="Models\DAO\LoginModel.cs" />
     <Compile Include="Models\DAO\ModifyAccount.cs" />
@@ -186,10 +196,14 @@
     <Compile Include="Models\DAO\ModifyBranch.cs" />
     <Compile Include="Models\DAO\ModifyClass.cs" />
     <Compile Include="Models\DAO\ModifyCourse.cs" />
+    <Compile Include="Models\DAO\ModifyDay.cs" />
     <Compile Include="Models\DAO\ModifyOpenRegister.cs" />
+    <Compile Include="Models\DAO\ModifyRoom.cs" />
     <Compile Include="Models\DAO\ModifyStudent.cs" />
+    <Compile Include="Models\DAO\ModifyStudentDetail.cs" />
     <Compile Include="Models\DAO\ModifySubjectProgram.cs" />
     <Compile Include="Models\DAO\ModifyTeacher.cs" />
+    <Compile Include="Models\DAO\ModifyTime.cs" />
     <Compile Include="Models\DAO\UpdateAccountModel.cs" />
     <Compile Include="Models\Day.cs" />
     <Compile Include="Models\OpenRegister.cs" />
@@ -199,6 +213,7 @@
     <Compile Include="Models\SoftwareTechnologyDBContext.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentDetail.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\SubjectProgram.cs" />
     <Compile Include="Models\Teacher.cs" />
@@ -245,6 +260,12 @@
     <Content Include="Areas\Teacher\Views\Shared\_LayoutTeacher.cshtml" />
     <Content Include="Areas\Teacher\Views\ChangePassword\Index.cshtml" />
     <Content Include="Areas\Teacher\Views\ScheduleManager\Index.cshtml" />
+    <Content Include="Areas\Student\Views\Shared\_MenuStudent.cshtml" />
+    <Content Include="Areas\Student\Views\Shared\_LayoutStudent.cshtml" />
+    <Content Include="Areas\Student\Views\ChangePassword\Index.cshtml" />
+    <Content Include="Areas\Student\Views\RegisterClass\Index.cshtml" />
+    <Content Include="Areas\Teacher\Views\AcceptClass\Index.cshtml" />
+    <Content Include="Areas\Student\Views\ScheduleManager\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -276,9 +297,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Student\Models\" />
-    <Folder Include="Areas\Student\Views\Shared\" />
-    <Folder Include="Areas\Teacher\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

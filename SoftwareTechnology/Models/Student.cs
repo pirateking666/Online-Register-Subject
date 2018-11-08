@@ -12,7 +12,7 @@ namespace SoftwareTechnology.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Student()
         {
-            Classes = new HashSet<Class>();
+            StudentDetails = new HashSet<StudentDetail>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -51,6 +51,6 @@ namespace SoftwareTechnology.Models
         public virtual Course Course { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Class> Classes { get; set; }
+        public virtual ICollection<StudentDetail> StudentDetails { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +8,7 @@ namespace SoftwareTechnology.Models.DAO
 {
     public class ListClass
     {
+        public int ID { get; set; }
         public string classType { get; set; }
         public string course { get; set; }
         public string branch { get; set; }
@@ -17,6 +19,8 @@ namespace SoftwareTechnology.Models.DAO
         public string teacher { get; set; }
         public string status { get; set; }
         public int numberOfStudent { get; set; }
+        public DateTime dayStart { get; set; }
+        public DateTime dayEnd { get; set; }
         public int classTypeID { get; set; }
         public int courseID { get; set; }
         public int branchID { get; set; }

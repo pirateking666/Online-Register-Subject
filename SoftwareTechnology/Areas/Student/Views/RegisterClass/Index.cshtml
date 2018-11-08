@@ -1,0 +1,200 @@
+﻿@model SoftwareTechnology.Areas.Student.Models.ManagerClassRe
+@{
+    ViewBag.Title = "Đề xuất học lại";
+    Layout = "~/Areas/Student/Views/Shared/_LayoutStudent.cshtml";
+}
+
+<div class="col-sm-10 clear">
+    <div class="content-body" style="height:auto;">
+        @RenderPage("~/Views/Shared/_Logout.cshtml")
+        <div class="col-sm-12">
+            <div class="col-sm-12 clear" style="margin-left:15px;"><a class="btn btn-primary" data-toggle="modal" data-target="#ClassRegister"><span class="glyphicon glyphicon-plus"></span> Thêm đề xuất lớp</a></div>
+            <div class="modal fade" id="ClassRegister">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal">&times;</a>
+                            <h4 class="modal-title">Thêm đăng ký lớp</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="ClassSubmit">
+                                <div class="form-group col-sm-12" style="height:25px;">
+                                    <div class="col-sm-5">@Html.Label("Môn học:", new { @class = "label-style2" })</div>
+                                    <div class="col-sm-7">
+                                        @Html.DropDownListFor(Model => Model.subjectID, ViewBag.ListSubjectDrop as SelectList, null, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" style="width:auto; height:10px;"></div>
+                                <div class="form-group col-sm-12" style="height:25px;">
+                                    <div class="col-sm-5">@Html.Label("Ngày học:", new { @class = "label-style2" })</div>
+                                    <div class="col-sm-7">
+                                        @Html.DropDownListFor(Model => Model.dayID, ViewBag.ListDay as SelectList, null, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" style="width:auto; height:10px;"></div>
+                                <div class="form-group col-sm-12" style="height:25px;">
+                                    <div class="col-sm-5">@Html.Label("Ca học:", new { @class = "label-style2" })</div>
+                                    <div class="col-sm-7">
+                                        @Html.DropDownListFor(Model => Model.timeID, ViewBag.ListTime as SelectList, null, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" style="width:auto; height:10px;"></div>
+                                <div class="form-group col-sm-12" style="height:25px;">
+                                    <div class="col-sm-5">@Html.Label("Phòng học:", new { @class = "label-style2" })</div>
+                                    <div class="col-sm-7">
+                                        @Html.DropDownListFor(Model => Model.roomID, ViewBag.ListRoom as SelectList, null, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </form>
+                            <div style="text-align:center;display:none;" id="loading-gif">
+                                <img src="~/Content/Image/loading.gif" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-default" onclick="CloseClassRegister()">Cancel</a>
+                            <a class="btn btn-success" onclick="InsertClass()">Submit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12" style="height: 20px;"></div>
+        <div class="col-sm-12">
+            @if (ViewBag.ListClassRe != null)
+            {
+                <div class="col-sm-12">
+                    <div class="panel-group">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading"><h3>Danh sách các lớp</h3></div>
+                            <div class="panel-body">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã lớp</th>
+                                            <th>Loại lớp</th>
+                                            <th style="width:15%;">Tên môn</th>
+                                            <th>Ngày</th>
+                                            <th>Giờ</th>
+                                            <th>Phòng</th>
+                                            <th>Giảng viên</th>
+                                            <th>SL sinh viên</th>
+                                            <th>Trạng thái</th>
+                                            <th>Ngày hết hạn</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.ListClassRe)
+                                        {
+                                            if (item.branchID == (int)Session["branchID"] && item.statusID != 3)
+                                            {
+                                                if (item.statusID == 1)
+                                                {
+                                                    DateTime dt = item.dayStart;
+                                                    dt = dt.AddDays(7);
+                                                    <tr>
+                                                        <td>@item.ID</td>
+                                                        <td>@item.classType</td>
+                                                        <td>@item.subject</td>
+                                                        <td>@item.day</td>
+                                                        <td>@item.time</td>
+                                                        <td>@item.room</td>
+                                                        <td>@item.teacher</td>
+                                                        <td>@item.numberOfStudent</td>
+                                                        <td style="color: gray;">@item.status</td>
+                                                        <td>@dt.Date.ToString("dd/MM/yyyy")</td>
+                                                    </tr>
+                                                }
+                                                else if (item.statusID == 2)
+                                                {
+                                                    DateTime dt = item.dayStart;
+                                                    dt = dt.AddDays(14);
+                                                    <tr>
+                                                        <td>@item.ID</td>
+                                                        <td>@item.classType</td>
+                                                        <td>@item.subject</td>
+                                                        <td>@item.day</td>
+                                                        <td>@item.time</td>
+                                                        <td>@item.room</td>
+                                                        <td>@item.teacher</td>
+                                                        <td>@item.numberOfStudent</td>
+                                                        <td style="color: dodgerblue;">@item.status</td>
+                                                        <td>@dt.Date.ToString("dd/MM/yyyy")</td>
+                                                    </tr>
+                                                }
+                                                else if (item.statusID == 4)
+                                                {
+                                                    DateTime dt = item.dayStart;
+                                                    if (DateTime.Now > dt.AddDays(16))
+                                                    {
+                                                        //
+                                                    }
+                                                    else
+                                                    {
+                                                        if (item.teacherID == 0)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.ID</td>
+                                                                <td>@item.classType</td>
+                                                                <td>@item.subject</td>
+                                                                <td>@item.day</td>
+                                                                <td>@item.time</td>
+                                                                <td>@item.room</td>
+                                                                <td style="color:red;">@item.teacher</td>
+                                                                <td>@item.numberOfStudent</td>
+                                                                <td style="color: orangered;">@item.status</td>
+                                                                <td>Null</td>
+                                                            </tr>
+                                                        }
+                                                        else
+                                                        {
+                                                            <tr>
+                                                                <td>@item.ID</td>
+                                                                <td>@item.classType</td>
+                                                                <td>@item.subject</td>
+                                                                <td>@item.day</td>
+                                                                <td>@item.time</td>
+                                                                <td>@item.room</td>
+                                                                <td>@item.teacher</td>
+                                                                <td style="color:red;">@item.numberOfStudent</td>
+                                                                <td style="color: orangered;">@item.status</td>
+                                                                <td>Null</td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-sm-12" style="height:30px;"></div>
+    </div>
+</div>
+<script>
+    var InsertClass = function () {
+        var data = $("#ClassSubmit").serialize();
+        $("#loading-gif").show();
+        $.ajax({
+            type: "Post",
+            url: "/Student/RegisterClass/InsertClass",
+            data: data,
+            success: function (check) {
+                if (check == "true") {
+                    window.location.reload(true);
+                }
+                //else {
+                //    $("#loading-gif").hide();
+                //    alert(check);
+                //}
+            }
+        })
+    }
+    var CloseClassRegister = function () {
+        $("#ClassRegister").modal("hide");
+    }
+</script>

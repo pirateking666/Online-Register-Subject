@@ -13,6 +13,10 @@ namespace SoftwareTechnology.Models.DAO
             SoftwareTechnologyDBContext db = new SoftwareTechnologyDBContext();
             return (db.Students.Count() + 1);
         }
+        public int GetIDByStudentUsername(string username)
+        {
+            return new SoftwareTechnologyDBContext().Students.SingleOrDefault(x => x.UserName == username).ID;
+        }
         public void Insert(string name, DateTime birth, string gender, string country, string address, string username, int courseID, int branchID)
         {
             SoftwareTechnologyDBContext db = new SoftwareTechnologyDBContext();

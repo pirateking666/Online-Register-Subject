@@ -17,6 +17,8 @@ namespace SoftwareTechnology.Models
 
         public int StatusID { get; set; }
 
+        public DateTime? DayEndClassRegister { get; set; }
+
         public virtual Status Status { get; set; }
     }
 }

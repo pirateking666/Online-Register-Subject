@@ -207,7 +207,7 @@
                                                             @Html.DropDownListFor(Model => Model.Student.month, new SelectList(Enumerable.Range(1, 12)), new { @class = "form-control" })
                                                         </div>
                                                         <div class="col-sm-4 clear">
-                                                            @Html.DropDownListFor(Model => Model.Student.year, new SelectList(Enumerable.Range(1980, 17)), new { @class = "form-control" })
+                                                            @Html.DropDownListFor(Model => Model.Student.year, new SelectList(Enumerable.Range(1980, DateTime.Now.Year - 1980 - 17)), new { @class = "form-control" })
                                                         </div>
                                                         <span class="error-message" style="display:none" id="valid-birth2"><span>Ngày sinh không hợp lệ</span></span>
                                                     </div>

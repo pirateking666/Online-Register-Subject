@@ -12,7 +12,7 @@ namespace SoftwareTechnology.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Class()
         {
-            Students = new HashSet<Student>();
+            StudentDetails = new HashSet<StudentDetail>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -38,6 +38,10 @@ namespace SoftwareTechnology.Models
 
         public int? NumberOfStudent { get; set; }
 
+        public DateTime? DayStart { get; set; }
+
+        public DateTime? DayEnd { get; set; }
+
         public virtual Branch Branch { get; set; }
 
         public virtual Course Course { get; set; }
@@ -57,6 +61,6 @@ namespace SoftwareTechnology.Models
         public virtual Teacher Teacher { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<StudentDetail> StudentDetails { get; set; }
     }
 }

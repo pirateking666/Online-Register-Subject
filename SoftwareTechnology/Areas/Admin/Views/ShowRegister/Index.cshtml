@@ -1,19 +1,220 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý đăng ký";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div class="col-sm-10 clear">
-    <div class="content-body">
+    <div class="content-body" style="height:auto;">
         @RenderPage("~/Views/Shared/_Logout.cshtml")
         <div class="panel-group">
             <div class="panel panel-primary">
                 <div class="panel-heading"><h2>Quản lý đăng ký</h2></div>
-                <div class="panel-body">
-
+                <div class="panel-body clear">
+                    <div class="col-sm-12" style="height:30px;"></div>
+                    <div class="col-sm-12 clear">
+                        <div class="panel-group">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><h4>Lớp học chính thức</h4></div>
+                                <div class="panel-body">
+                                    @if (ViewBag.ListClass != null)
+                                    {
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th style="width: 9%;">Loại</th>
+                                                    <th>Khóa</th>
+                                                    <th>Ngành</th>
+                                                    <th style="width:15%;">Môn</th>
+                                                    <th>Ngày</th>
+                                                    <th>Giờ</th>
+                                                    <th>Phòng</th>
+                                                    <th>Giáo viên</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Ngày bắt đầu</th>
+                                                    <th>Ngày kết thúc</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in ViewBag.ListClass)
+                                                {
+                                                    if (item.statusID == 4)
+                                                    {
+                                                        DateTime dt = item.dayStart;
+                                                        if (DateTime.Now > dt.AddDays(-5))
+                                                        {
+                                                            //
+                                                        }
+                                                        else
+                                                        {
+                                                            <tr>
+                                                                <td>@item.ID</td>
+                                                                <td>@item.classType</td>
+                                                                <td>@item.course</td>
+                                                                <td>@item.branch</td>
+                                                                <td>@item.subject</td>
+                                                                <td>@item.day</td>
+                                                                <td>@item.time</td>
+                                                                <td>@item.room</td>
+                                                                <td>@item.teacher</td>
+                                                                <td style="color:red;">@item.numberOfStudent / 15</td>
+                                                                <td style="color: orangered;">@item.status</td>
+                                                                <td>@item.dayStart.Date.ToString("dd/MM/yyyy")</td>
+                                                                <td>@item.dayEnd.Date.ToString("dd/MM/yyyy")</td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td>@item.ID</td>
+                                                            <td>@item.classType</td>
+                                                            <td>@item.course</td>
+                                                            <td>@item.branch</td>
+                                                            <td>@item.subject</td>
+                                                            <td>@item.day</td>
+                                                            <td>@item.time</td>
+                                                            <td>@item.room</td>
+                                                            <td>@item.teacher</td>
+                                                            <td>@item.numberOfStudent / 15</td>
+                                                            @if (item.statusID == 1)
+                                                            {
+                                                                <td style="color: gray;">@item.status</td>
+                                                            }
+                                                            else if (item.statusID == 2)
+                                                            {
+                                                                <td style="color: dodgerblue;">@item.status</td>
+                                                            }
+                                                            else if (item.statusID == 3)
+                                                            {
+                                                                <td style="color: lawngreen;">@item.status</td>
+                                                            }
+                                                            <td>@item.dayStart.Date.ToString("dd/MM/yyyy")</td>
+                                                            <td>@item.dayEnd.Date.ToString("dd/MM/yyyy")</td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="height:30px;"></div>
+                    <div class="col-sm-12 clear">
+                        <div class="panel-group">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><h4>Lớp học lại</h4></div>
+                                <div class="panel-body">
+                                    @if (ViewBag.ListClassRe != null)
+                                    {
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th style="width: 9%;">Loại</th>
+                                                    <th>Ngành</th>
+                                                    <th style="width:15%;">Môn</th>
+                                                    <th>Ngày</th>
+                                                    <th>Giờ</th>
+                                                    <th>Phòng</th>
+                                                    <th>Giáo viên</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Ngày bắt đầu</th>
+                                                    <th>Ngày kết thúc</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in ViewBag.ListClassRe)
+                                                {
+                                                    if (item.statusID == 4)
+                                                    {
+                                                        DateTime dt = item.dayStart;
+                                                        if (DateTime.Now > dt.AddDays(16))
+                                                        {
+                                                            //
+                                                        }
+                                                        else
+                                                        {
+                                                            if (item.teacherID == 0)
+                                                            {
+                                                                <tr>
+                                                                    <td>@item.ID</td>
+                                                                    <td>@item.classType</td>
+                                                                    <td>@item.branch</td>
+                                                                    <td>@item.subject</td>
+                                                                    <td>@item.day</td>
+                                                                    <td>@item.time</td>
+                                                                    <td>@item.room</td>
+                                                                    <td style="color:red;">@item.teacher</td>
+                                                                    <td>@item.numberOfStudent / 15</td>
+                                                                    <td style="color: orangered;">@item.status</td>
+                                                                    <td>Null</td>
+                                                                    <td>Null</td>
+                                                                </tr>
+                                                            }
+                                                            else
+                                                            {
+                                                                <tr>
+                                                                    <td>@item.ID</td>
+                                                                    <td>@item.classType</td>
+                                                                    <td>@item.branch</td>
+                                                                    <td>@item.subject</td>
+                                                                    <td>@item.day</td>
+                                                                    <td>@item.time</td>
+                                                                    <td>@item.room</td>
+                                                                    <td>@item.teacher</td>
+                                                                    <td style="color:red;">@item.numberOfStudent / 15</td>
+                                                                    <td style="color: orangered;">@item.status</td>
+                                                                    <td>Null</td>
+                                                                    <td>Null</td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td>@item.ID</td>
+                                                            <td>@item.classType</td>
+                                                            <td>@item.branch</td>
+                                                            <td>@item.subject</td>
+                                                            <td>@item.day</td>
+                                                            <td>@item.time</td>
+                                                            <td>@item.room</td>
+                                                            <td>@item.teacher</td>
+                                                            <td>@item.numberOfStudent / 15</td>
+                                                            @if (item.statusID == 1)
+                                                            {
+                                                                <td style="color: gray;">@item.status</td>
+                                                            }
+                                                            else if (item.statusID == 2)
+                                                            {
+                                                                <td style="color: dodgerblue;">@item.status</td>
+                                                            }
+                                                            else if (item.statusID == 3)
+                                                            {
+                                                                <td style="color: lawngreen;">@item.status</td>
+                                                            }
+                                                            <td>@item.dayStart.Date.ToString("dd/MM/yyyy")</td>
+                                                            <td>@item.dayEnd.Date.ToString("dd/MM/yyyy")</td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-sm-12" style="height:30px;"></div>
     </div>
 </div>
 

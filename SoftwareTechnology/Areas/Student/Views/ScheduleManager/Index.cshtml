@@ -1,0 +1,327 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý lịch học";
+    Layout = "~/Areas/Student/Views/Shared/_LayoutStudent.cshtml";
+}
+<div class="col-sm-10 clear">
+    <div class="content-body" style="height:auto;">
+        @RenderPage("~/Views/Shared/_Logout.cshtml")
+        @if (ViewBag.ScheduleClass != null)
+        {
+            <div class="col-sm-12">
+                <div class="panel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h3>Thời khóa biểu</h3></div>
+                        <div class="panel-body">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Mã lớp</th>
+                                        <th>Loại lớp</th>
+                                        <th>Tên môn</th>
+                                        <th>Ngày</th>
+                                        <th>Giờ</th>
+                                        <th>Phòng</th>
+                                        <th>SL sinh viên</th>
+                                        <th>Trạng thái</th>
+                                        <th>Ngày bắt đầu</th>
+                                        <th>Ngày kết thúc</th>
+                                    </tr>
+                                </thead>
+                                @foreach (var item in ViewBag.ScheduleClass)
+                                {
+                                    if (item.statusID == 3 && item.branchID == (int)Session["branchID"])
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                <td>@item.ID</td>
+                                                <td>@item.classType</td>
+                                                <td>@item.subject</td>
+                                                <td>@item.day</td>
+                                                <td>@item.time</td>
+                                                <td>@item.room</td>
+                                                <td>@item.numberOfStudent</td>
+                                                <td style="color: lawngreen;">@item.status</td>
+                                                <td>@item.dayStart.Date.ToString("dd/MM/yyyy")</td>
+                                                <td>@item.dayEnd.Date.ToString("dd/MM/yyyy")</td>
+                                            </tr>
+                                        </tbody>
+                                    }
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-sm-12" style="height:15px;"></div>
+        <div class="modal fade" id="ConfirmJoinClass">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a class="close" data-dismiss="modal">&times;</a>
+                        <h4 class="modal-title">Xác nhận vào lớp</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Bạn có chắc chắn muốn tham gia lớp học này?</h4>
+                        <div style="text-align:center;display:none;" id="loading-gif1">
+                            <img src="~/Content/Image/loading.gif" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-default" onclick="CloseJoin()">Cancel</a>
+                        <a class="btn btn-success" onclick="ConfirmJoin()">Confirm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="ConfirmLeaveClass">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a class="close" data-dismiss="modal">&times;</a>
+                        <h4 class="modal-title">Xác nhận rời lớp</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Bạn có chắc chắn muốn rời khỏi lớp học này?</h4>
+                        <div style="text-align:center;display:none;" id="loading-gif2">
+                            <img src="~/Content/Image/loading.gif" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-default" onclick="CloseLeave()">Cancel</a>
+                        <a class="btn btn-success" onclick="ConfirmLeave()">Confirm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (ViewBag.Class != null)
+        {
+            <div class="col-sm-12">
+                <div class="panel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h3>Các lớp đã được mở đăng ký</h3></div>
+                        <div class="panel-body clear">
+                            <div class="col-sm-12" style="height:20px;"></div>
+                            <div class="col-sm-12 clear">
+                                <div class="panel-group">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading"><h4>Lớp học chính thức</h4></div>
+                                        <div class="panel-body">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:7%;">Mã lớp</th>
+                                                        <th style="width:14%;">Loại lớp</th>
+                                                        <th>Tên môn</th>
+                                                        <th style="width:8.5%;">Ngày</th>
+                                                        <th style="width:5.5%;">Giờ</th>
+                                                        <th>Phòng</th>
+                                                        <th style="width:16%">SL sinh viên</th>
+                                                        <th style="width:10%;">Trạng thái</th>
+                                                        <th>Join</th>
+                                                        <th>Leave</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in ViewBag.Class)
+                                                    {
+                                                        if (item.branchID == (int)Session["branchID"])
+                                                        {
+                                                            if (item.classTypeID == 1)
+                                                            {
+                                                                if (item.statusID == 2)
+                                                                {
+                                                                    <tr>
+                                                                        <td>@item.ID</td>
+                                                                        <td>@item.classType</td>
+                                                                        <td>@item.subject</td>
+                                                                        <td>@item.day</td>
+                                                                        <td>@item.time</td>
+                                                                        <td>@item.room</td>
+                                                                        <td>@item.numberOfStudent / 15</td>
+                                                                        <td style="color: dodgerblue;">@item.status</td>
+                                                                        @if (ViewBag.StudentDetail != null)
+                                                                        {
+                                                                            bool chek = true;
+                                                                            foreach (var item1 in ViewBag.StudentDetail)
+                                                                            {
+                                                                                if (item1.ClassID == item.ID)
+                                                                                {
+                                                                                    <td></td>
+                                                                                    <td><a class="btn btn-warning" onclick="LeaveDialog(@item.ID)"><i class="glyphicon glyphicon-log-out"></i></a></td>
+                                                                                    chek = false;
+                                                                                    break;
+                                                                                }
+                                                                            }
+                                                                            if (chek == true)
+                                                                            {
+                                                                                <td><a class="btn btn-success" onclick="JoinDialog(@item.ID,@item.dayID,@item.timeID)"><i class="glyphicon glyphicon-log-in"></i></a></td>
+                                                                                <td></td>
+                                                                            }
+                                                                        }
+                                                                    </tr>
+                                                                }
+                                                                else if (item.statusID == 4)
+                                                                {
+                                                                    DateTime dt = item.dayStart;
+                                                                    if (DateTime.Now > dt.AddDays(-5))
+                                                                    {
+                                                                        //
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@item.ID</td>
+                                                                            <td>@item.classType</td>
+                                                                            <td>@item.subject</td>
+                                                                            <td>@item.day</td>
+                                                                            <td>@item.time</td>
+                                                                            <td>@item.room</td>
+                                                                            <td style="color: red;">@item.numberOfStudent / 15</td>
+                                                                            <td style="color: orangered;">@item.status</td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12" style="height:20px;"></div>
+                            <div class="col-sm-12 clear">
+                                <div class="panel-group">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading"><h4>Lớp học lại</h4></div>
+                                        <div class="panel-body">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:7%;">Mã lớp</th>
+                                                        <th style="width:14%;">Loại lớp</th>
+                                                        <th>Tên môn</th>
+                                                        <th style="width:8.5%;">Ngày</th>
+                                                        <th style="width:5.5%;">Giờ</th>
+                                                        <th>Phòng</th>
+                                                        <th style="width:16%">SL sinh viên</th>
+                                                        <th style="width:10%;">Trạng thái</th>
+                                                        <th>Join</th>
+                                                        <th>Leave</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in ViewBag.ClassRe)
+                                                    {
+                                                        if (item.branchID == (int)Session["branchID"])
+                                                        {
+                                                            if (item.classTypeID == 2)
+                                                            {
+                                                                if (item.statusID == 1)
+                                                                {
+                                                                    <tr>
+                                                                        <td>@item.ID</td>
+                                                                        <td>@item.classType</td>
+                                                                        <td>@item.subject</td>
+                                                                        <td>@item.day</td>
+                                                                        <td>@item.time</td>
+                                                                        <td>@item.room</td>
+                                                                        <td>@item.numberOfStudent / 15</td>
+                                                                        <td style="color: gray;">@item.status</td>
+                                                                        @if (ViewBag.StudentDetail != null)
+                                                                        {
+                                                                            bool chek = true;
+                                                                            foreach (var item1 in ViewBag.StudentDetail)
+                                                                            {
+                                                                                if (item1.ClassID == item.ID)
+                                                                                {
+                                                                                    <td></td>
+                                                                                    <td><a class="btn btn-warning" onclick="LeaveDialog(@item.ID)"><i class="glyphicon glyphicon-log-out"></i></a></td>
+                                                                                    chek = false;
+                                                                                    break;
+                                                                                }
+                                                                            }
+                                                                            if (chek == true)
+                                                                            {
+                                                                                <td><a class="btn btn-success" onclick="JoinDialog(@item.ID,@item.dayID,@item.timeID)"><i class="glyphicon glyphicon-log-in"></i></a></td>
+                                                                                <td></td>
+                                                                            }
+                                                                        }
+                                                                    </tr>
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-sm-12" style="height:20px;"></div>
+        <input type="hidden" id="GetID" />
+        <input type="hidden" id="GetDay" />
+        <input type="hidden" id="GetTime" />
+    </div>
+</div>
+<script>
+    var LeaveDialog = function (ClassID) {
+        $("#ConfirmLeaveClass").modal("show");
+        $("#GetID").val(ClassID);
+    }
+    var JoinDialog = function (ClassID, DayID, TimeID) {
+        $("#ConfirmJoinClass").modal("show");
+        $("#GetID").val(ClassID);
+        $("#GetDay").val(DayID);
+        $("#GetTime").val(TimeID);
+    }
+    var CloseJoin = function () {
+        $("#ConfirmJoinClass").modal("hide");
+    }
+    var CloseLeave = function () {
+        $("#ConfirmLeaveClass").modal("hide");
+    }
+    var ConfirmJoin = function () {
+        $("#loading-gif1").show();
+        var ClassID = $("#GetID").val();
+        var DayID = $("#GetDay").val();
+        var TimeID = $("#GetTime").val();
+        $.ajax({
+            type: "Post",
+            url: "/Student/ScheduleManager/Join",
+            data: { ClassID: ClassID, DayID: DayID, TimeID: TimeID },
+            success: function (bool) {
+                if (bool == "true") {
+                    window.location.reload(true);
+                }
+                else {
+                    $("#loading-gif1").hide();
+                    alert(bool);
+                }
+            }
+        })
+    }
+    var ConfirmLeave = function () {
+        $("#loading-gif2").show();
+        var ClassID = $("#GetID").val();
+        $.ajax({
+            type: "Post",
+            url: "/Student/ScheduleManager/Leave",
+            data: { ClassID: ClassID },
+            success: function (bool) {
+                window.location.reload(true);
+            }
+        })
+    }
+</script>
+

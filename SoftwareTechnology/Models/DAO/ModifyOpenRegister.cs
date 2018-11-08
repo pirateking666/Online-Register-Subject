@@ -12,6 +12,29 @@ namespace SoftwareTechnology.Models.DAO
             SoftwareTechnologyDBContext db = new SoftwareTechnologyDBContext();
             return db.OpenRegisters.ToList();
         }
+        public List<OpenRegister> GetListByStatusID(int statusID)
+        {
+            SoftwareTechnologyDBContext db = new SoftwareTechnologyDBContext();
+            return db.OpenRegisters.Where(x => x.StatusID == statusID).ToList();
+        }
+        public DateTime GetDayStartByStatusID(int StatusID)
+        {
+            SoftwareTechnologyDBContext db = new SoftwareTechnologyDBContext();
+            OpenRegister or = db.OpenRegisters.SingleOrDefault(x => x.StatusID == StatusID);
+            return (DateTime)or.DayStart;
+        }
+        public DateTime GetDayEndClassRegisterByStatus(int StatusID)
+        {
+            SoftwareTechnologyDBContext db = new SoftwareTechnologyDBContext();
+            OpenRegister or = db.OpenRegisters.SingleOrDefault(x => x.StatusID == StatusID);
+            return (DateTime)or.DayEndClassRegister;
+        }
+        public DateTime GetDayEndByStatusID(int StatusID)
+        {
+            SoftwareTechnologyDBContext db = new SoftwareTechnologyDBContext();
+            OpenRegister or = db.OpenRegisters.SingleOrDefault(x => x.StatusID == StatusID);
+            return (DateTime)or.DayEnd;
+        }
         public void Insert()
         {
             SoftwareTechnologyDBContext db = new SoftwareTechnologyDBContext();
@@ -20,7 +43,8 @@ namespace SoftwareTechnology.Models.DAO
             or.StatusID = 3;
             or.ID = GetNextID();
             or.DayStart = dt;
-            or.DayEnd = dt.AddDays(5);
+            or.DayEndClassRegister = dt.AddDays(7);
+            or.DayEnd = dt.AddDays(14);
             db.OpenRegisters.Add(or);
             db.SaveChanges();
         }

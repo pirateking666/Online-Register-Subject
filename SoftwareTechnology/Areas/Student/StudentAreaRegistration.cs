@@ -17,7 +17,8 @@ namespace SoftwareTechnology.Areas.Student
             context.MapRoute(
                 "Student_default",
                 "Student/{controller}/{action}/{id}",
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                new[] {"SoftwareTechnology.Areas.Student.Controllers"}
             );
         }
     }

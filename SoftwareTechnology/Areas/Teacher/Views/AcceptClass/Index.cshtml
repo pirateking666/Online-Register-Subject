@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "Nhận lớp học lại";
+    Layout = "~/Areas/Teacher/Views/Shared/_LayoutTeacher.cshtml";
+}
+
+<div class="col-sm-10 clear">
+    <div class="content-body" style="height:auto;">
+        @RenderPage("~/Views/Shared/_Logout.cshtml")
+        <div class="col-sm-12">
+            <div class="modal fade" id="ConfirmAccept">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal">&times;</a>
+                            <h4 class="modal-title">Xác nhận nhận lớp</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Khi nhận rồi sẽ không thể hoàn tác. Bạn có chắc chắn muốn nhận lớp?</h4>
+                            <div style="text-align:center;display:none;" id="loading-gif">
+                                <img src="~/Content/Image/loading.gif" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-default" onclick="Close()">Cancel</a>
+                            <a class="btn btn-success" onclick="Confirm()">Confirm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (ViewBag.ListClassRe != null)
+        {
+            <div class="col-sm-12">
+                <div class="panel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><h3>Danh sách lớp học lại</h3></div>
+                        <div class="panel-body">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Mã lớp</th>
+                                        <th>Loại lớp</th>
+                                        <th>Tên môn</th>
+                                        <th>Ngày</th>
+                                        <th>Giờ</th>
+                                        <th>Phòng</th>
+                                        <th>SL Sinh viên</th>
+                                        <th>Trạng thái</th>
+                                        <th>Nhận lớp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.ListClassRe)
+                                    {
+                                        if (item.statusID == 2 && item.branchID == (int)Session["branchID"] && item.teacherID == 0)
+                                        {
+                                            <tr>
+                                                <td>@item.ID</td>
+                                                <td>@item.classType</td>
+                                                <td>@item.subject</td>
+                                                <td>@item.day</td>
+                                                <td>@item.time</td>
+                                                <td>@item.room</td>
+                                                <td>@item.numberOfStudent</td>
+                                                <td style="color:dodgerblue;">@item.status</td>
+                                                <td><a class="btn btn-success" onclick="AcceptClass(@item.ID,@item.dayID,@item.timeID)"><i class="glyphicon glyphicon-ok"></i></a></td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-sm-12" style="height:30px;"></div>
+        <input type="hidden" id="GetID" />
+        <input type="hidden" id="GetDay" />
+        <input type="hidden" id="GetTime" />
+    </div>
+</div>
+<script>
+    var AcceptClass = function (ClassID, dayID, timeID) {
+        $("#ConfirmAccept").modal("show");
+        $("#GetID").val(ClassID);
+        $("#GetDay").val(dayID);
+        $("#GetTime").val(timeID);
+    }
+    var Close = function () {
+        $("#ConfirmAccept").modal("hide");
+    }
+    var Confirm = function () {
+        $("#loading-gif").show();
+        var ClassID = $("#GetID").val();
+        var DayID = $("#GetDay").val();
+        var TimeID = $("#GetTime").val();
+        $.ajax({
+            type: "Post",
+            url: "/Teacher/AcceptClass/Accept",
+            data: { ClassID: ClassID, dayID: DayID, timeID: TimeID },
+            success: function (bool) {
+                if (bool == "true") {
+                    window.location.reload(true);
+                }
+                else {
+                    $("#loading-gif").hide();
+                    alert(bool);
+                }
+            }
+        })
+    }
+</script>

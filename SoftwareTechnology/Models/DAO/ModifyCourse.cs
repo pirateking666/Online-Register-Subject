@@ -13,5 +13,16 @@ namespace SoftwareTechnology.Models.DAO
             DateTime dt = DateTime.Now;
             return db.Courses.Where(x => x.BeginYear == dt.Year || x.BeginYear == (dt.Year - 1) || x.BeginYear == (dt.Year - 2) || x.BeginYear == (dt.Year - 3)).ToList();
         }
+        public int GetCourseIDForYear(int year)
+        {
+            SoftwareTechnologyDBContext db = new SoftwareTechnologyDBContext();
+            List<Course> list = GetListCourse();
+            for (int i = 0; i < list.Count(); i++)
+            {
+                if (list[i].BeginYear == year)
+                    return list[i].ID;
+            }
+            return 0;
+        }
     }
 }

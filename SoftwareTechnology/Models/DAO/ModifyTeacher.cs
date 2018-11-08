@@ -27,5 +27,11 @@ namespace SoftwareTechnology.Models.DAO
             db.Teachers.Add(t);
             db.SaveChanges();
         }
+        public Teacher GetTeacherByUsername(string username)
+        {
+            SoftwareTechnologyDBContext db = new SoftwareTechnologyDBContext();
+            Teacher tea = db.Teachers.SingleOrDefault(x => x.UserName == username);
+            return tea;
+        }
     }
 }
